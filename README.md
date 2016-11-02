@@ -1,24 +1,118 @@
-# README
+Schema:
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+Airport
+- Name, city_id, airport_code, lat, long,
 
-* Ruby version
+City
+- Name, country, lat, long
 
-* System dependencies
+Historical_data
+- Starting_airport_id, destination_airport_id, lowest_price, airline_id, date
 
-* Configuration
+flight_cache_aggregation
+- starting_airport_id, destination_airport_id, average_lowest_price, airline_id, api_id, sample_size
+(starting_airport_id, destination_airport_id, airline_id) index
 
-* Database creation
 
-* Database initialization
+apis
+api_name, api_url
 
-* How to run the test suite
+api_parameters
+look at apis first???
 
-* Services (job queues, cache servers, search engines, etc.)
+airline
+-airline_name
 
-* Deployment instructions
+airline_partner
+- airline, partner (or airline is it directional?)
 
-* ...
+close_airport
+-origin_airport, airport // doubles the table size. better way to do this?
+
+
+
+View:
+Enter location page
+Search Results Page
+
+
+Stack:
+React/Redux
+<-jbuilder->
+Rails
+Postgresql
+Heroku/DO
+
+
+TODO:
+Create a readme -> list all steps -md
+Set up Rails -md
+Set up React/Redux -md
+    -Set up store, dispatcher
+
+Create Tables    -ss
+    -list all tables in readme
+
+research apis -ss, md
+    -what can we query (1)
+        - can we wildcard destination city
+    - how the results going to be formatted (5)
+    - limit results
+    - sort results
+
+    Flights: 
+    travelpayouts
+    dohop
+    flight stats
+    expedia
+    google flights
+
+    Hotels :
+    hotlescombined
+    booking.com
+
+
+MVP: As a user, I go to whatever site and I am able to add multiple origins and an optional destination and find options based on price + budget constraints for different origins + optional date. Flights/Hotels/Activites/Cars
+V2 Features:
+
+Driving options (length of time to drive, having a car/renting a car)
+Book on site
+
+
+Front End: React/Redux
+Back: 
+
+Flights: 
+travelpayouts
+dohop
+flight stats
+expedia
+google flights
+
+Hotels :
+hotlescombined
+booking.com
+
+
+
+
+
+MVP API:
+- Takes multiple users
+- and their origins
+- returns list of airports by price
+
+Algorithm MVP
+- Parameters: array of starting airports
+- 
+- returns array of ending airports => array [price, name, etc.]
+
+
+schema v2
+//Users
+
+
+
+
+
