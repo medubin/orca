@@ -109,6 +109,18 @@ Algorithm MVP
 - returns array of ending airports => array [price, name, etc.]
 
 
+
+
+
+Week 2 todo:
+<!-- Stef -->
+- make models
+- API search - multi destination
+- Rough draft of popular destination algorithm
+<!-- Matt -->
+- Build mockup of front page
+- Implement redux
+
 schema v2
 //Users
 

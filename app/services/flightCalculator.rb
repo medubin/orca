@@ -10,14 +10,30 @@ puts res.header
 
 
 
+#TODO this is done in the front end
 # origins = hash: airport => [users => prices]
 def getFlights origins, date
-	destinations = [];
-	origins.each do |airport, users| 
-		destinations.push('likely destinations from db')
-
-
-
+	popDestinations = getPopularDestinations
+	destinations = {}
+	popDestinations do |destination|
+		origins.each do |airport, users| 
+			destinations.de     nstination[airport] = price
+		end
+		return destination
 	end
+
+end
+
+def getPopularDestinations origins, date
+	season = getSeason(date)
+	destinations = [];
+	origins.each do |airport, _|
+		destinations += memcache.getdestinations(airport, date)
+	end
+	if count(destinations) < 100
+		destinations += memcache.getMostPopularDestinations(100 - count(destinations), season)
+	end
+
+	return destinations
 
 end
