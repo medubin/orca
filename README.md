@@ -98,6 +98,7 @@ booking.com
 
 
 
+
 MVP API:
 - Takes multiple users
 - and their origins
@@ -123,6 +124,7 @@ Week 2 todo:
 
 schema v2
 //Users
+
 
 
 
