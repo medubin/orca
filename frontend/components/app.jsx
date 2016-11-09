@@ -1,15 +1,14 @@
 import React from 'react';
+import NavBar from './navbar/navbar_container.js'
 
-const App = React.createClass({
 
-  render: function() {
-    return (
-      <div>
-        Hello World!
-      </div>
-    );
-  }
-
-});
+const App = ({}) => (
+  <div>
+  <header>
+    <NavBar />
+  </header>
+    Hello World!
+  </div>
+);
 
 module.exports = App;

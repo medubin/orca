@@ -9,6 +9,7 @@ import Root from './components/root.jsx';
 import Store from './store/store';
 
 document.addEventListener("DOMContentLoaded", function() {
+  let store = Store();
   const root = document.getElementById('content');
-  ReactDOM.render(<Root store={Store}/>, root);
+  ReactDOM.render(<Root store={store}/>, root);
 });
