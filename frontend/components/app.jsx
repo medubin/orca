@@ -1,6 +1,6 @@
-var React = require('react');
+import React from 'react';
 
-var App = React.createClass({
+const App = React.createClass({
 
   render: function() {
     return (

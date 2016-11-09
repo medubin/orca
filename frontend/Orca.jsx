@@ -1,22 +1,14 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var Router = require('react-router').Router;
-var App = require('./components/app.jsx');
+//React
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Router, Route, browserHistory } from 'react-router';
 
-var Route = require('react-router').Route;
-
-
-
-var browserHistory = require('react-router').browserHistory;
-
-var routes = (
-  <Route component={App} path = '/'>
-  </Route>
-
-);
-
+//Components
+import App from './components/app.jsx';
+import Root from './components/root.jsx';
+import Store from './store/store';
 
 document.addEventListener("DOMContentLoaded", function() {
-  var root = document.querySelector('#content');
-  ReactDOM.render(<Router history={browserHistory}>{routes}</Router>, root);
+  const root = document.getElementById('content');
+  ReactDOM.render(<Root store={Store}/>, root);
 });
