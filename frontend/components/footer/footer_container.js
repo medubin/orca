@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import NavBar from './navbar.jsx';
+import Footer from './footer.jsx';
 
 // const mapStateToProps = (state, { params }) => {
 //   return {
@@ -14,4 +14,4 @@ export default connect(
   // mapDispatchToProps
   null,
   null
-)(NavBar);
+)(Footer);

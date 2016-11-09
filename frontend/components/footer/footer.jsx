@@ -1,13 +1,13 @@
 import React from 'react';
 
-const NavBar = () => {
+const Footer = () => {
 
     return (
       <div >
-        Welcome to Orca!
+        Footer
       </div>
     );
 
 
 }
-export default NavBar;
+export default Footer;

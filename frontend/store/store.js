@@ -2,7 +2,7 @@ import { createStore } from 'redux';
 import RootReducer from '../reducers/root_reducer';
 import RootMiddleware from '../middleware/root_middleware';
 
-const configureStore = (preloadedState = {}) => (
+const Store = (preloadedState = {}) => (
   createStore(
     RootReducer,
     preloadedState,
@@ -10,4 +10,4 @@ const configureStore = (preloadedState = {}) => (
   )
 );
 
-export default configureStore;
+export default Store;
