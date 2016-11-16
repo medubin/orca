@@ -1,15 +1,20 @@
-var React = require('react');
+import React from 'react';
+import NavBar from './navbar/navbar_container.js'
+import Footer from './footer/footer_container.js'
 
-var App = React.createClass({
 
-  render: function() {
-    return (
-      <div>
-        Hello World!
-      </div>
-    );
-  }
+const App = ({}) => (
+  <div>
+  <header>
+    <NavBar />
+  </header>
+    Hello World!
+    <footer>
+      <Footer />
+    </footer>
+  </div>
 
-});
 
-module.exports = App;
+);
+
+export default App;
