@@ -10,4 +10,5 @@ const Store = (preloadedState = {}) => (
   )
 );
 
+
 export default Store;

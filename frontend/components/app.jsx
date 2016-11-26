@@ -1,6 +1,8 @@
 import React from 'react';
 import NavBar from './navbar/navbar_container.js'
 import Footer from './footer/footer_container.js'
+import Search from './search/search_container.js'
+
 
 
 const App = ({}) => (
@@ -8,7 +10,7 @@ const App = ({}) => (
   <header>
     <NavBar />
   </header>
-    Hello World!
+  <Search/>
     <footer>
       <Footer />
     </footer>
