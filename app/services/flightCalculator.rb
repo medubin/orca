@@ -2,100 +2,80 @@ require 'net/http'
 require 'uri'
 require 'json'
 
-def createSkyscannerSession(params)
-	url = URI("http://partners.api.skyscanner.net/apiservices/pricing/v1.0?apiKey=" << ENV['skyscanner'])
+require 'httparty'
+require 'json'
+class FlightCalculator
 
-	http = Net::HTTP.new(url.host, url.port)
+	def createSkyscannerSession(params)
+		uri = URI("http://partners.api.skyscanner.net/apiservices/pricing/v1.0")
 
-	request = Net::HTTP::Post.new(url)
-	request["content-type"] = 'application/x-www-form-urlencoded'
-	request["accept"] = 'application/json'
-	request["cache-control"] = 'no-cache'
-	request.body = "OriginPlace=#{params['departure_airport']}-iata&Country=#{params['country']}&Currency=#{params['currency']}&DestinationPlace=#{params['destination']}-iata&OutboundDate=#{params['outbound_date']}&Locale=#{params['locale']}"
-	response = http.request(request)
+		http = Net::HTTP.new(uri.host, uri.port)
+		req = Net::HTTP::Post.new(uri.path, 'Content-Type' => 'application/x-www-form-urlencoded', 'Accept' => 'application/json')
+		req.body= URI.encode_www_form({
+			# 	for now this is hard coded until front end is implemented
+			# 	using skyscanners demo apiKey
+			apiKey:'prtl6749387986743898559646983194',
+			country:'us',
+			currency:'usd',
+			locale:'en-us',
+			originplace:'BDL-iata',
+			destinationplace:'SFO-iata',
+			outbounddate:'2017-12-12',
+			adults:'1' })
 
-	if response.code != "201"
-	  session_id = nil
-	else
-	  polling_url = response["location"]
-	  session_id = polling_url.split('/').last
+		response = http.request(req)
 
-	  return session_id
-	end
-end
-
-def getFlightPrices(params)
-	url = URI("http://partners.api.skyscanner.net/apiservices/pricing/v1.0/#{params['sessionKey']}?apiKey=prtl6749387986743898559646983194")
-
-	http = Net::HTTP.new(url.host, url.port)
-
-	request = Net::HTTP::Get.new(url)
-	request["content-type"] = 'application/x-www-form-urlencoded'
-	request["accept"] = 'application/json'
-	request["cache-control"] = 'no-cache'
-	request.body = ""
-	puts request.body
-	response = http.request(request)
-	puts response
-	puts response.body
-
-	if response.code != "201"
-	  session_id = nil
-	else
-	  polling_url = response["location"]
-	  session_id = polling_url.split('/').last
-
-	  return session_id
-	end
-end	
-
-theParams = {
-	"departure_airport" => "sfo",
-	"country" => "US",
-	"currency" => "USD",
-	"locale" => "en-US",
-	"destination" => "bdl",
-	"outbound_date" => "2016-12-16",
-	"inbound_date" => "2016-12-26",
-	"cabin_class" => "Economy",
-	"adult" => 1,
-	"children" => 0,
-	"infants" => 0,
-}
-
-sessionKey = createSkyscannerSession(theParams)
-
-flightParams = {
-	"sessionKey" => sessionKey,
-}
-
-puts getFlightPrices(flightParams)
-
-
-#TODO this is done in the front end
-# origins = hash: airport => [users => prices]
-def getFlights origins, date
-	popDestinations = getPopularDestinations
-	destinations = {}
-	popDestinations do |destination|
-		origins.each do |airport, users| 
-			destinations.de     nstination[airport] = price
+		if response.code != "201"
+			return nil
 		end
-		return destination
+
+		polling_url = response["location"]
+		return polling_url.split('/').last
 	end
 
-end
+	def getFlightPrices(params)
+		url = URI("http://partners.api.skyscanner.net/apiservices/pricing/v1.0/#{params['sessionKey']}?apiKey=prtl6749387986743898559646983194")
 
-def getPopularDestinations origins, date
-	season = getSeason(date)
-	destinations = [];
-	origins.each do |airport, _|
-		destinations += memcache.getdestinations(airport, date)
-	end
-	if count(destinations) < 100
-		destinations += memcache.getMostPopularDestinations(100 - count(destinations), season)
+		http = Net::HTTP.new(url.host, url.port)
+
+		request = Net::HTTP::Get.new(url)
+		request["content-type"] = 'application/x-www-form-urlencoded'
+		request["accept"] = 'application/json'
+		request["cache-control"] = 'no-cache'
+		request.body = ""
+		response = http.request(request)
+
+		return response.code == "200" ? response.body : nil
+
 	end
 
-	return destinations
+#
+# #TODO this is done in the front end
+# # origins = hash: airport => [users => prices]
+# 	def getFlights origins, date
+# 		popDestinations = getPopularDestinations
+# 		destinations = {}
+# 		popDestinations do |destination|
+# 			origins.each do |airport, users|
+# 				destinations.de     nstination[airport] = price
+# 			end
+# 			return destination
+# 		end
+#
+# 	end
+#
+# 	def getPopularDestinations origins, date
+# 		season = getSeason(date)
+# 		destinations = [];
+# 		origins.each do |airport, _|
+# 			destinations += memcache.getdestinations(airport, date)
+# 		end
+# 		if count(destinations) < 100
+# 			destinations += memcache.getMostPopularDestinations(100 - count(destinations), season)
+# 		end
+#
+# 		return destinations
+#
+# 	end
 
 end
