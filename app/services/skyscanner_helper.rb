@@ -1,3 +1,7 @@
+require 'httparty'
+require 'byebug'
+
+
 class SkyscannerHelper
   def create_skyscanner_session(traveler)
     uri = URI('http://partners.api.skyscanner.net/apiservices/pricing/v1.0')
@@ -49,5 +53,11 @@ class SkyscannerHelper
       end
     end
     best_price_option
+  end
+
+  def get_browse_cache_prices(traveler)
+
+    HTTParty.get("http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/us/usd/us-en/sfo-iata/anywhere/2017-12-16/?apiKey=prtl6749387986743898559646983194",
+                  :headers => { 'Content-Type' => 'application/json' })
   end
 end
