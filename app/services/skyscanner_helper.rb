@@ -4,6 +4,8 @@ require 'byebug'
 
 class SkyscannerHelper
   def create_skyscanner_session(traveler)
+
+    # TODO add currency, locale, and country to the airports table
     uri = URI('http://partners.api.skyscanner.net/apiservices/pricing/v1.0')
 
     http = Net::HTTP.new(uri.host, uri.port)
@@ -31,6 +33,9 @@ class SkyscannerHelper
   end
 
   def get_flight_prices(session)
+    if session == nil
+      return nil
+    end
     url = URI("http://partners.api.skyscanner.net/apiservices/pricing/v1.0/#{session}?apiKey=prtl6749387986743898559646983194")
     http = Net::HTTP.new(url.host, url.port)
     request = Net::HTTP::Get.new(url)
@@ -43,6 +48,9 @@ class SkyscannerHelper
   end
 
   def get_cheapest_flight(flight_prices)
+    if flight_prices == nil
+      return nil
+    end
     lowest_price = nil
     best_price_option = nil
     flight_prices.each do |price_option|

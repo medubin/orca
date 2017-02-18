@@ -1,0 +1,2 @@
+class PopularDestination < ApplicationRecord
+end

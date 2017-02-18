@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  starting_region_id: 
+  destination_id: 
+  destination_type: MyString
+  starting_week: 1
+  ending_week: 1
+
+two:
+  starting_region_id: 
+  destination_id: 
+  destination_type: MyString
+  starting_week: 1
+  ending_week: 1
