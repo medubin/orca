@@ -1,0 +1,2 @@
+class FlightCache < ApplicationRecord
+end

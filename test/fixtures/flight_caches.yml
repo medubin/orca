@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  origin_id: 
+  origin_id_type: MyString
+  destination_id: 
+  destination_type: MyString
+  price_min: 
+  airline_id: 
+  api_id: 
+
+two:
+  origin_id: 
+  origin_id_type: MyString
+  destination_id: 
+  destination_type: MyString
+  price_min: 
+  airline_id: 
+  api_id: 

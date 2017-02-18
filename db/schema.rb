@@ -10,9 +10,52 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20170218165558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "airlines", force: :cascade do |t|
+    t.string   "airline_name"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "airports", force: :cascade do |t|
+    t.string   "name"
+    t.bigint   "city_id"
+    t.bigint   "latitute"
+    t.bigint   "longitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "apis", force: :cascade do |t|
+    t.string   "api_name"
+    t.text     "api_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "cities", force: :cascade do |t|
+    t.string   "name"
+    t.string   "country_code"
+    t.bigint   "latitude"
+    t.bigint   "longitude"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "flight_caches", force: :cascade do |t|
+    t.bigint   "origin_id"
+    t.string   "origin_id_type"
+    t.bigint   "destination_id"
+    t.string   "destination_type"
+    t.bigint   "price_min"
+    t.bigint   "airline_id"
+    t.integer  "api_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
 
 end
