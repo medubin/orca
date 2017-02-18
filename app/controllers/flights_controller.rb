@@ -1,4 +1,5 @@
 require 'flight_calculator.rb'
+require 'qpx_express_helper.rb'
 require 'json'
 
 
@@ -17,15 +18,18 @@ class FlightsController < ApplicationController
         :children => 0,
         :infants => 0,
     }
-    flight_scanner = FlightCalculator.new
+    # flight_scanner = FlightCalculator.new
+    #
+    # session_key = flight_scanner.create_skyscanner_session(the_params)
+    #
+    # @flight_price_data = flight_scanner.get_flight_prices(session_key)
+    #
+    # if @flight_price_data
+    #   @flight_price_data = flight_scanner.get_cheapest_flight(JSON.parse(@flight_price_data)["Itineraries"])
+    # end
 
-    session_key = flight_scanner.create_skyscanner_session(the_params)
-
-    @flight_price_data = flight_scanner.get_flight_prices(session_key)
-
-    if @flight_price_data
-      @flight_price_data = flight_scanner.get_cheapest_flight(JSON.parse(@flight_price_data)["Itineraries"])
-    end
+    flight_cal = QPXExpressHelper.new
+    @flight_price_data = flight_cal.get_flight_prices([])
 
   end
 end
