@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170218183549) do
+ActiveRecord::Schema.define(version: 20170220202754) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,11 +28,20 @@ ActiveRecord::Schema.define(version: 20170218183549) do
     t.bigint   "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "code"
   end
 
   create_table "apis", force: :cascade do |t|
     t.string   "api_name"
     t.text     "api_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "cache_destinations", force: :cascade do |t|
+    t.string   "name"
+    t.string   "code"
+    t.bigint   "place_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -44,6 +53,9 @@ ActiveRecord::Schema.define(version: 20170218183549) do
     t.bigint   "longitude"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.string   "locale"
+    t.string   "country"
+    t.string   "currency"
   end
 
   create_table "flight_caches", force: :cascade do |t|
@@ -56,6 +68,8 @@ ActiveRecord::Schema.define(version: 20170218183549) do
     t.integer  "api_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.integer  "week"
+    t.boolean  "round_trip"
   end
 
   create_table "popular_destinations", force: :cascade do |t|

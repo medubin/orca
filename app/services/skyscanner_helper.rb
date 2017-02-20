@@ -4,8 +4,6 @@ require 'byebug'
 
 class SkyscannerHelper
   def create_skyscanner_session(traveler)
-
-    # TODO add currency, locale, and country to the airports table
     uri = URI('http://partners.api.skyscanner.net/apiservices/pricing/v1.0')
 
     http = Net::HTTP.new(uri.host, uri.port)
@@ -63,8 +61,20 @@ class SkyscannerHelper
     best_price_option
   end
 
-  def get_browse_cache_prices(airport_origin)
-    HTTParty.get("http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/us/usd/us-en/sfo-iata/anywhere/2017-12-16/?apiKey=prtl6749387986743898559646983194",
-                  :headers => { 'Content-Type' => 'application/json' })
+  def get_browse_cache_prices(airport_code, destination, starting_date, ending_date)
+    city = City.find(airport['city_id'])
+    if city == nil
+      return nil
+    end
+    airport_code = airport_code + '-iata'
+    HTTParty.get("http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/?/?/?/?/?/?/?/?apiKey=prtl6749387986743898559646983194",
+                 city['country'],
+                 city['currency'],
+                 city['locale'],
+                 airport_code,
+                 destination,
+                 starting_date,
+                 ending_date,
+                 :headers => { 'Content-Type' => 'application/json' })
   end
 end
