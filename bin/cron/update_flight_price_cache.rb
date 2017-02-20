@@ -9,13 +9,9 @@ class UpdateFlightPriceCache
     airports.each do |airport|
       destinations.each do |destination|
         (0..51).each do |week|
-          time = Time.now
-          starting_date = Date.new(time.year, time.month, time.day)
-          starting_date += week * 7
-          ending_date += week * 14
-          starting_date = starting_date.strftime('%Y-%m-%d')
-          ending_date - ending_date.strftime('%Y-%m-%d')
-          browse_cached_prices = skyscanner_helper.get_browse_cache_prices(airport['airport_code'], destination, starting_date, ending_date)
+          travel_dates = get_travel_dates(week)
+          browse_cached_prices = skyscanner_helper.get_browse_cache_prices(airport['airport_code'], destination,
+                                                                           travel_dates['starting_date'], travel_dates['ending_date'])
           browse_cached_prices.each do |cache_flight|
             update_cache('destination_cache_place', cache_flight['DestinationId'], airport, week, cache_flight['MinPrice'])
           end
@@ -25,7 +21,13 @@ class UpdateFlightPriceCache
       popular_destinations = PopularDestination.select('destination_id').where('starting_region_id = ? AND destination_type = airport', region_id)
       popular_destinations.each do |destination_id|
         (1..51).each do |week|
-          traveler = [destination_id => destination_id, origin_airport => airport]
+          travel_dates = get_travel_dates(week)
+          traveler = [
+              :destination_id => destination_id,
+              :origin_airport => airport,
+              :starting_date => travel_dates['starting_date'],
+              :ending_date => travel_dates['ending_date']
+          ]
           session = skyscanner_helper.create_skyscanner_session([traveler])
           flight_prices = session ? skyscanner_helper.get_flight_prices(session) : nil
           price = flight_prices ? skyscanner_helper.get_cheapest_flight(flightPrices) : nil
@@ -52,5 +54,16 @@ class UpdateFlightPriceCache
                       :round_trip => round_trip
       ).save
     end
+  end
+
+  def get_travel_dates(week)
+    travel_dates = []
+    time = Time.now
+    starting_date = Date.new(time.year, time.month, time.day)
+    starting_date += week * 7
+    ending_date += week * 14
+    travel_dates['starting_date'] = starting_date.strftime('%Y-%m-%d')
+    travel_dates['ending_date'] = ending_date.strftime('%Y-%m-%d')
+    travel_dates
   end
 end
