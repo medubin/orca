@@ -6,19 +6,22 @@ class SkyscannerHelper
   def create_skyscanner_session(traveler)
     uri = URI('http://partners.api.skyscanner.net/apiservices/pricing/v1.0')
 
+    city = City.find(traveler[airport['city_id']])
+    airport_code = traveler[airport['code']] + '-iata'
+    destination_code = Airport.select(code).find(traveler[destination_id]) + '-iata'
+
     http = Net::HTTP.new(uri.host, uri.port)
     req = Net::HTTP::Post.new(uri.path, 'Content-Type' => 'application/x-www-form-urlencoded', 'Accept' => 'application/json')
     req.body= URI.encode_www_form({
-                                      # 	for now this is hard coded until front end is implemented
                                       # 	using skyscanners demo apiKey
-                                      # 	will call each part of travler
                                       apiKey:'prtl6749387986743898559646983194',
-                                      country:'us',
-                                      currency:'usd',
-                                      locale:'en-us',
-                                      originplace:'SFO-iata',
-                                      destinationplace:'BDL-iata',
-                                      outbounddate:'2017-12-12',
+                                      country: city['country'],
+                                      currency: city['currency'],
+                                      locale: city['locale'],
+                                      originplace: airport_code,
+                                      destinationplace:destination_code,
+                                      outbounddate:traveler['starting_date'],
+                                      inbounddate: traveler['ending_date'],
                                       adults:'1' })
 
     response = http.request(req)
