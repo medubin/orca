@@ -45,6 +45,7 @@ GEM
       addressable (>= 2.3.1)
       extlib (>= 0.9.15)
       multi_json (>= 1.0.0)
+    bcrypt (3.1.11)
     builder (3.2.2)
     byebug (9.0.6)
     chronic (0.10.2)
@@ -208,6 +209,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt (~> 3.1.7)
   byebug
   coffee-rails (~> 4.2)
   google-api-client (< 0.9)
@@ -229,4 +231,4 @@ DEPENDENCIES
   whenever (~> 0.9.4)
 
 BUNDLED WITH
-   1.14.3
+   1.14.4

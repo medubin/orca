@@ -1,20 +1,18 @@
 import React from 'react';
-import NavBar from './navbar/navbar_container.js'
-import Footer from './footer/footer_container.js'
+import { Link } from 'react-router';
+import GreetingContainer from './greeting/greeting_container';
 
 
-const App = ({}) => (
+const App = ({ children }) => (
   <div>
-  <header>
-    <NavBar />
-  </header>
-    Hello World!
-    <footer>
-      <Footer />
-    </footer>
+    <header>
+      <Link to="/" className="header-link">
+        <h1>Orca</h1>
+      </Link>
+      <GreetingContainer />
+    </header>
+      {children}
   </div>
-
-
 );
 
 export default App;
