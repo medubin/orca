@@ -1,4 +1,4 @@
-require '../bin/cron/update_flight_price_cache.rb'
+require '../bin/cron/daily_update_flight_price_cache.rb'
 
 # Use this file to easily define all of your cron jobs.
 #
@@ -22,5 +22,5 @@ require '../bin/cron/update_flight_price_cache.rb'
 # Learn more: http://github.com/javan/whenever
 
 every 1.day, :at => '4:00 am' do
-  runner 'UpdateFlightPriceCache.new.index'
+  runner 'DailyUpdateFlightPriceCache.new.index'
 end

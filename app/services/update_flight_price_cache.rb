@@ -2,7 +2,7 @@ require 'date'
 require 'skyscanner_helper.rb'
 
 class UpdateFlightPriceCache
-  def index
+  def create_and_cache
     skyscanner_helper = SkyscannerHelper.new
     airports = Airport.select('airport_id, airport_code, city_id')
     destinations = CacheDestination.select('code')

@@ -8,5 +8,8 @@ class FlightCache < ApplicationRecord
 
   end
 
-
+  def update_cache(destination_type, destination_id, airport, week, price, round_trip)
+    cache_updater = UpdateFlightPriceCache.new
+    cache_updater.update_cache(destination_type, destination_id, airport, week, price, round_trip)
+  end
 end
