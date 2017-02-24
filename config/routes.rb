@@ -2,8 +2,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: :json} do
     resource :user, only: [:create]
     resource :session, only: [:create, :destroy, :show]
-    # resources :flights
-    # root to: 'flights#index'
+    resource :flight_cache,  only: [:get_location_cache]
   end
 
   root "static_pages#root"
