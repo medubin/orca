@@ -8,6 +8,7 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import App from './app';
 import SessionFormContainer from './session_form/session_form_container';
 import LandingPageContainer from './landing_page/landing_page_container'
+import FlightForm from './flight_form/flight_form_container'
 
 
 const Root = ({ store }) => {
@@ -33,8 +34,7 @@ const Root = ({ store }) => {
            <IndexRoute component={LandingPageContainer} />
            <Route path="/login" component={SessionFormContainer} onEnter={_redirectIfLoggedIn} />
            <Route path="/signup" component={SessionFormContainer} onEnter={_redirectIfLoggedIn} />
-
-
+           <Route path="/form" component={FlightForm} onEnter={_ensureLoggedIn} />
          </Route>
        </Router>
      </Provider>
