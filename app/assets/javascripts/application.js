@@ -13,4 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require materialize-sprockets
 //= require_tree .
+$(".dropdown-button").dropdown(true);
+$(".button-collapse").sideNav();

@@ -35,15 +35,18 @@ class FlightForm extends React.Component {
     let forms = []
     for(let key in this.state.users) {
       forms.push(
-        <div key={key}>
-          <label>
-            Location:
-            <input type='text' field='location' value={this.state.users[key]['location']} onChange={(e) => this.update(key, 'location', e)}/>
-          </label>
-            <label>
-              Budget:
-              <input type='text' field='location' value={this.state.users[key]['budget']} onChange={(e) => this.update(key, 'budget', e)}/>
-            </label>
+        <div className='row' key={key}>
+          <div className="input-field col s4">
+            <label>Location</label>
+            <input className="validate" type='text' id={'location' + key}  value={this.state.users[key]['location']} onChange={(e) => this.update(key, 'location', e)} />
+
+
+          </div>
+
+          <div className="input-field col s4">
+            <label>Budget</label>
+              <input className='validate' type='text' value={this.state.users[key]['budget']} onChange={(e) => this.update(key, 'budget', e)} />
+          </div>
         </div>
       )
     }
@@ -53,12 +56,11 @@ class FlightForm extends React.Component {
   addUser() {
     let users = this.state.users
     users.push({
-    location: "",
-    budget: ""
+      location: "",
+      budget: ""
     })
 
     this.setState({users: users})
-    console.log(this.state)
   }
 
 
@@ -79,12 +81,16 @@ class FlightForm extends React.Component {
 
   render() {
     return (
-      <div>
-        <div>
-          {this.renderForm()}
+      <div className = 'row'>
+        <div className='row'>
+          <form className="col s12">
+            {this.renderForm()}
+          </form>
         </div>
-        <div>
-          <button onClick={this.addUser}>Add User</button>
+        <div className='row'>
+          <div className = 'col s12'>
+            <button onClick={this.addUser}>Add User</button>
+          </div>
         </div>
       </div>
     )
